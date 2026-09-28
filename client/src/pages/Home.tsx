@@ -101,6 +101,7 @@ export default function Home() {
     document.title = "Papparoti Kenya — Warm buns, good coffee, good company";
     const metaDescription = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (metaDescription) metaDescription.content = "Discover Papparoti's signature Malaysian coffee bun, explore drink pairings, and visit our cafés at Circle Mall in Kilimani and Broadwalk Mall in Westlands, Nairobi.";
+    if (window.location.hash === "#reserve") setShowReservation(true);
   }, []);
 
   const handleReserve = (event: FormEvent<HTMLFormElement>) => {
@@ -132,6 +133,7 @@ export default function Home() {
           <a href="/contact" onClick={() => setMobileNavOpen(false)}>Contact</a>
         </nav>
         <div className="header-actions">
+          <button className="button header-reserve" onClick={() => setShowReservation(true)}>Reserve</button>
           <a className="header-order" href={circleMallOrder} target="_blank" rel="noreferrer"><span>Order</span><span className="header-order-full">from Circle Mall</span><ArrowRight size={15} /></a>
           <button className="menu-toggle" aria-label="Toggle navigation" aria-expanded={mobileNavOpen} aria-controls="site-navigation" onClick={() => setMobileNavOpen((open) => !open)}>
             {mobileNavOpen ? <X size={21} /> : <MenuIcon size={21} />}
