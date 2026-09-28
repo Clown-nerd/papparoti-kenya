@@ -250,3 +250,19 @@ h1, h2, h3, p { margin-top: 0; }.hero-copy h1 { max-width: 620px; margin: 0; col
   .hero-note { flex-wrap: wrap; }
   .menu-item { min-height: 58px; }
 }
+
+/* Final phone overrides follow the menu's base responsive rules. */
+@media (max-width: 760px) {
+  .menu-group { grid-template-columns: 100px minmax(0, 1fr) 25px; gap: 15px; padding: 18px 14px 22px; }
+  .menu-group-photo { width: 100px; height: 116px; }
+  .menu-group-icon { display: none; }
+  .menu-group-main { grid-column: 2; min-width: 0; }
+  .menu-index { grid-column: 3; grid-row: 1; }
+  .menu-group-main > p { margin-bottom: 18px; }
+  .location-card { grid-template-columns: 30px minmax(0, 1fr); }
+  .location-info { min-width: 0; }
+  .location-actions { min-width: 0; flex-wrap: wrap; justify-content: flex-start; gap: 10px 14px; }
+  .location-actions > a { min-width: 0; }
+  .location-actions .text-link { max-width: 100%; white-space: normal; }
+  .location-actions .text-link svg { flex: 0 0 auto; }
+}

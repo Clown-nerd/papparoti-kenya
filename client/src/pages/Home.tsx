@@ -91,8 +91,8 @@ const menuGroups = [
       ["Something to share", "Ask the Nairobi team what is available today"],
     ],
     icon: Utensils,
-    image: menuImages[2],
-    imageAlt: "A welcoming café dining space",
+    image: foodImages[1].src,
+    imageAlt: "Chicken sandwich with fresh fillings",
   },
 ];
 
@@ -196,6 +196,9 @@ export default function Home() {
               <p className="muted-copy">The signature bun is made for a good cup. Explore Papparoti favourites, from hot drinks to iced coffee and milk tea, then check with your Nairobi branch for today’s selection.</p>
             </div>
           </div>
+          <div className="food-photo-grid" aria-label="A taste of the wider menu">
+            {foodImages.map((image) => <img key={image.alt} src={image.src} alt={image.alt} loading="lazy" />)}
+          </div>
           <div className="menu-list">
             {menuGroups.map((group, index) => {
               const Icon = group.icon;
@@ -215,9 +218,6 @@ export default function Home() {
                 </article>
               );
             })}
-          </div>
-          <div className="food-photo-grid" aria-label="A taste of the wider menu">
-            {foodImages.map((image) => <img key={image.alt} src={image.src} alt={image.alt} loading="lazy" />)}
           </div>
           <div className="menu-footnote"><span><Check size={15} /> Check current items and prices before ordering.</span><span>Ask the branch about allergens and availability.</span><a className="arrow-link" href="/menu">Explore the full menu <ArrowRight size={15} /></a><a className="arrow-link" href={circleMallOrder} target="_blank" rel="noreferrer">View live Circle Mall menu <ExternalLink size={15} /></a></div>
         </section>
