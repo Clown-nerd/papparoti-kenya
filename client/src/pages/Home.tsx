@@ -23,6 +23,14 @@ const menuImages = [
   "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=480&q=68",
   "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=480&q=68",
 ];
+const foodImages = [
+  { src: "https://images.unsplash.com/photo-1768849352371-24837caf2179?auto=format&fit=crop&w=720&q=78", alt: "Grilled lamb chops with couscous and garnish" },
+  { src: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=720&q=78", alt: "Chicken sandwich with fresh fillings" },
+  { src: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=720&q=78", alt: "Creamy pasta topped with chicken" },
+  { src: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=720&q=78", alt: "Beef burger with fresh toppings" },
+  { src: "https://images.unsplash.com/photo-1652677050854-cf617a24b0d2?auto=format&fit=crop&w=720&q=78", alt: "Colorful cocktail served over ice" },
+  { src: "https://images.unsplash.com/photo-1516559828984-fb3b99548b21?auto=format&fit=crop&w=720&q=78", alt: "Scoops of ice cream" },
+];
 const circleMallOrder = "https://www.ubereats.com/ke/store/papparoti-kilimani/OFu5oYdSVKO2ENPfM2QpNQ";
 const guestReviews = "https://www.tripadvisor.com/Restaurant_Review-g294207-d26867060-Reviews-Papparoti-Nairobi.html";
 
@@ -207,6 +215,9 @@ export default function Home() {
                 </article>
               );
             })}
+          </div>
+          <div className="food-photo-grid" aria-label="A taste of the wider menu">
+            {foodImages.map((image) => <img key={image.alt} src={image.src} alt={image.alt} loading="lazy" />)}
           </div>
           <div className="menu-footnote"><span><Check size={15} /> Check current items and prices before ordering.</span><span>Ask the branch about allergens and availability.</span><a className="arrow-link" href="/menu">Explore the full menu <ArrowRight size={15} /></a><a className="arrow-link" href={circleMallOrder} target="_blank" rel="noreferrer">View live Circle Mall menu <ExternalLink size={15} /></a></div>
         </section>
