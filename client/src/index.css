@@ -200,11 +200,21 @@ h1, h2, h3, p { margin-top: 0; }.hero-copy h1 { max-width: 620px; margin: 0; col
 .contact-card { border-radius: 16px; }
 @media (max-width: 760px) {
   .hero-media { margin: 12px 12px 0; border-radius: 18px; }
-  .menu-group { padding: 18px 13px 22px; }
+  .menu-group { grid-template-columns: 100px minmax(0, 1fr) 25px; gap: 15px; padding: 18px 14px 22px; }
+  .menu-group-photo { width: 100px; height: 116px; }
+  .menu-group-icon { display: none; }
+  .menu-group-main { grid-column: 2; }
+  .menu-index { grid-column: 3; grid-row: 1; }
+  .menu-group-main > p { margin-bottom: 18px; }
   .location-card { padding: 21px 17px; }
   .food-photo-grid, .menu-food-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .menu-food-gallery { padding-right: 20px; padding-left: 20px; }
   .menu-page-grid { gap: 12px; }
+  .contact-grid { gap: 12px; padding: 0 20px 70px; background: var(--paper); }
+  .contact-card { min-height: 0; padding: 26px 24px 25px; }
+  .contact-card h2 { margin: 7px 0 12px; }
+  .contact-card > p { margin-bottom: 15px; }
+  .contact-card > a { margin-bottom: 10px; }
 }
 @media (max-width: 430px) {
   .menu-food-gallery { grid-template-columns: 1fr 1fr; }
