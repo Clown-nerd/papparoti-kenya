@@ -146,6 +146,39 @@ h1, h2, h3, p { margin-top: 0; }.hero-copy h1 { max-width: 620px; margin: 0; col
 @media (max-width: 430px) { .hero-copy h1 { font-size: 55px; }.hero-actions { align-items: flex-start; flex-direction: column; gap: 18px; }.story-heading h2, .menu-intro h2, .locations-heading h2 { font-size: 46px; }.menu-group { grid-template-columns: 1fr 25px; }.menu-group-icon { display: none; }.menu-group-main { grid-column: 1; }.menu-index { grid-column: 2; grid-row: 1; }.form-row { grid-template-columns: 1fr; }.footer-columns { grid-template-columns: repeat(2, 1fr); gap: 30px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 
+/* Food photography brings the menu categories to life while keeping their text easy to scan. */
+.menu-group { grid-template-columns: 128px 42px minmax(0, 1fr) 30px; align-items: start; gap: 22px; }
+.menu-group-photo { width: 128px; height: 132px; border-radius: 2px; object-fit: cover; }
+.menu-group-icon { grid-column: 2; }
+.menu-group-main { grid-column: 3; }
+.menu-index { grid-column: 4; }
+.menu-page-card { display: flex; flex-direction: column; padding: 0; }
+.menu-page-photo { display: block; width: 100%; height: 190px; object-fit: cover; }
+.menu-page-card-content { flex: 1; padding: 27px clamp(20px, 3vw, 42px) 33px; }
+.menu-page-card-content .menu-page-number { margin-bottom: 24px; }
+@media (max-width: 760px) {
+  .menu-group { grid-template-columns: 90px 36px minmax(0, 1fr) 25px; gap: 13px; }
+  .menu-group-photo { width: 90px; height: 112px; }
+  .menu-group-icon { display: grid; }
+  .menu-group-main { grid-column: 3; }
+  .menu-index { grid-column: 4; grid-row: 1; }
+}
+@media (max-width: 430px) {
+  .menu-group { grid-template-columns: 70px minmax(0, 1fr) 25px; gap: 12px; }
+  .menu-group-photo { width: 70px; height: 92px; }
+  .menu-group-icon { display: none; }
+  .menu-group-main { grid-column: 2; }
+  .menu-index { grid-column: 3; grid-row: 1; }
+  .menu-page-photo { height: 220px; }
+}
+.reservation-modal textarea { width: 100%; min-height: 84px; padding: 11px 12px; border: 1px solid rgba(34,33,29,.22); border-radius: 3px; color: var(--ink); outline: 0; background: #fbf8f2; font: inherit; font-size: 13px; letter-spacing: 0; line-height: 1.5; text-transform: none; resize: vertical; }
+.reservation-modal textarea:focus { border-color: var(--amber); }
+.branch-actions .button-light { min-height: 39px; padding: 0 15px; font-size: 11px; }
+@media (max-width: 760px) {
+  .branch-actions { gap: 10px; }
+  .branch-actions .button { flex: 1 1 auto; justify-content: center; }
+}
+
 /* Finishing details for the order-first, bun-led experience. */
 .header-order { min-height: 39px; padding: 0 15px; border: 1px solid rgba(31,41,34,.22); border-radius: 999px; transition: color 160ms ease, background 160ms ease, border-color 160ms ease; }
 .header-order:hover { color: #fff; border-color: var(--dark); background: var(--dark); }

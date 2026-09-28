@@ -16,17 +16,23 @@ import {
   X,
 } from "lucide-react";
 
-const heroImage = "https://images.deliveryhero.io/image/talabat/MenuItems/SIGNATURE__BUN638024010968978277.jpg";
-const bunImage = "https://i0.wp.com/papparoti.us/wp-content/uploads/2025/12/BUN-2-scaled-1.jpg";
+const heroImage = "https://images.deliveryhero.io/image/talabat/MenuItems/SIGNATURE__BUN638024010968978277.jpg?width=1200";
+const bunImage = "https://i0.wp.com/papparoti.us/wp-content/uploads/2025/12/BUN-2-scaled-1.jpg?fit=1200%2C900&quality=78";
+const menuImages = [
+  "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=480&q=68",
+  "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=480&q=68",
+  "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=480&q=68",
+];
 const circleMallOrder = "https://www.ubereats.com/ke/store/papparoti-kilimani/OFu5oYdSVKO2ENPfM2QpNQ";
 const guestReviews = "https://www.tripadvisor.com/Restaurant_Review-g294207-d26867060-Reviews-Papparoti-Nairobi.html";
 
-const locations: { name: string; area: string; address: string; phone: string; maps: string; order?: string; reviews?: string }[] = [
+const locations: { name: string; area: string; address: string; phone: string; hours: string; maps: string; order?: string; reviews?: string }[] = [
   {
     name: "Circle Mall",
     area: "Kilimani",
     address: "Circle Mall, Timau Road, Nairobi",
     phone: "+254 768 612 064",
+    hours: "Daily, 7:00 AM–10:00 PM",
     maps: "https://www.google.com/maps/search/?api=1&query=Circle+Mall+Kilimani+Nairobi",
   },
   {
@@ -34,6 +40,7 @@ const locations: { name: string; area: string; address: string; phone: string; m
     area: "Westlands",
     address: "Broadwalk Mall, Muthithi Road, Nairobi",
     phone: "+254 741 799 330",
+    hours: "Daily, 7:00 AM–10:00 PM",
     maps: "https://www.google.com/maps/search/?api=1&query=Broadwalk+Mall+Nairobi",
     reviews: guestReviews,
   },
@@ -52,6 +59,8 @@ const menuGroups = [
       ["Bun + hot drink", "A classic pairing from the Papparoti menu"],
     ],
     icon: Croissant,
+    image: menuImages[0],
+    imageAlt: "Freshly baked pastries arranged for serving",
   },
   {
     label: "02 / Find your cup",
@@ -62,6 +71,8 @@ const menuGroups = [
       ["Bubble tea & blended drinks", "Explore Papparoti favourites; selection varies by branch"],
     ],
     icon: Coffee,
+    image: menuImages[1],
+    imageAlt: "Coffee being prepared at a café",
   },
   {
     label: "03 / Stay a while",
@@ -72,6 +83,8 @@ const menuGroups = [
       ["Something to share", "Ask the Nairobi team what is available today"],
     ],
     icon: Utensils,
+    image: menuImages[2],
+    imageAlt: "A welcoming café dining space",
   },
 ];
 
@@ -94,7 +107,8 @@ export default function Home() {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
     const branch = locations.find((location) => location.name === form.get("branch")) ?? locations[0];
-    const details = `Hello Papparoti, I’d like to request a table at ${branch.name}. Name: ${form.get("name")}. Phone: ${form.get("phone")}. Guests: ${form.get("guests")}. Preferred date and time: ${form.get("date")}.`;
+    const requests = String(form.get("requests") || "").trim();
+    const details = `Hello Papparoti, I’d like to request a table at ${branch.name}. Name: ${form.get("name")}. Phone: ${form.get("phone")}. Guests: ${form.get("guests")}. Preferred date and time: ${form.get("date")}.${requests ? ` Special requests: ${requests}.` : ""}`;
     window.open(`https://wa.me/${branch.phone.replace(/\D/g, "")}?text=${encodeURIComponent(details)}`, "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };
@@ -177,6 +191,7 @@ export default function Home() {
               const Icon = group.icon;
               return (
                 <article className="menu-group" key={group.title}>
+                  <img className="menu-group-photo" src={group.image} alt={group.imageAlt} loading="lazy" />
                   <div className="menu-group-icon"><Icon size={23} strokeWidth={1.5} /></div>
                   <div className="menu-group-main">
                     <span className="menu-label">{group.label}</span>
@@ -203,7 +218,7 @@ export default function Home() {
             {locations.map((location, index) => (
               <article className="location-card" key={location.name}>
                 <div className="location-number">0{index + 1}</div>
-                <div className="location-info"><span className="menu-label">Nairobi / {location.area}</span><h3>{location.name}</h3><p><MapPin size={16} /> {location.address}</p><p><Clock3 size={16} /> Hours can change · Call ahead to confirm</p><p><Phone size={16} /> {location.phone}</p></div>
+                <div className="location-info"><span className="menu-label">Nairobi / {location.area}</span><h3>{location.name}</h3><p><MapPin size={16} /> {location.address}</p><p><Clock3 size={16} /> {location.hours}</p><p><Phone size={16} /> {location.phone}</p></div>
                 <div className="location-actions"><a href={`tel:${location.phone.replace(/\s/g, "")}`} className="button button-light"><Phone size={15} /> Call branch</a><a href={location.maps} target="_blank" rel="noreferrer" className="text-link">Directions <ExternalLink size={15} /></a><a href={location.reviews} target="_blank" rel="noreferrer" className="text-link">Guest reviews <ExternalLink size={15} /></a>{location.order && <a href={location.order} target="_blank" rel="noreferrer" className="text-link">Order delivery <ExternalLink size={15} /></a>}</div>
               </article>
             ))}
@@ -231,7 +246,7 @@ export default function Home() {
         <div className="footer-bottom"><span>© {new Date().getFullYear()} Papparoti Kenya</span><span>A warm bun. A good cup. A little more time.</span></div>
       </footer>
 
-      {showReservation && <div className="modal-backdrop" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) closeReservation(); }}><div className="reservation-modal" role="dialog" aria-modal="true" aria-labelledby="reserve-title"><button className="modal-close" onClick={closeReservation} aria-label="Close reservation form"><X size={20} /></button>{submitted ? <div className="submitted-state"><span className="success-mark"><Check size={24} /></span><p className="eyebrow">One last step</p><h2 id="reserve-title">Your message is ready.</h2><p>WhatsApp has opened with your request. Review it and tap Send to reach the branch. Your table is not confirmed until the team replies.</p><button className="button button-dark" onClick={closeReservation}>Done</button></div> : <><p className="eyebrow">Request a table</p><h2 id="reserve-title">Make room<br /><i>for good company.</i></h2><form onSubmit={handleReserve}><label>Name<input name="name" required placeholder="Your name" /></label><label>Phone number<input name="phone" required type="tel" placeholder="+254 …" /></label><div className="form-row"><label>Branch<select name="branch" defaultValue="Circle Mall"><option value="Circle Mall">Circle Mall, Kilimani</option><option value="Broadwalk Mall">Broadwalk Mall</option></select></label><label>Guests<select name="guests" defaultValue="2 guests"><option>2 guests</option><option>3–4 guests</option><option>5+ guests</option></select></label></div><label>Preferred date & time<input name="date" required type="datetime-local" /></label><button className="button button-dark" type="submit">Continue in WhatsApp <ArrowRight size={17} /></button><small>Your request is sent only after you tap Send in WhatsApp. The branch will confirm availability.</small></form></>}</div></div>}
+      {showReservation && <div className="modal-backdrop" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) closeReservation(); }}><div className="reservation-modal" role="dialog" aria-modal="true" aria-labelledby="reserve-title"><button className="modal-close" onClick={closeReservation} aria-label="Close reservation form"><X size={20} /></button>{submitted ? <div className="submitted-state"><span className="success-mark"><Check size={24} /></span><p className="eyebrow">One last step</p><h2 id="reserve-title">Your message is ready.</h2><p>WhatsApp has opened with your request. Review it and tap Send to reach the branch. Your table is not confirmed until the team replies.</p><button className="button button-dark" onClick={closeReservation}>Done</button></div> : <><p className="eyebrow">Request a table</p><h2 id="reserve-title">Make room<br /><i>for good company.</i></h2><form onSubmit={handleReserve}><label>Name<input name="name" required placeholder="Your name" /></label><label>Phone number<input name="phone" required type="tel" placeholder="+254 …" /></label><div className="form-row"><label>Branch<select name="branch" defaultValue="Circle Mall"><option value="Circle Mall">Circle Mall, Kilimani</option><option value="Broadwalk Mall">Broadwalk Mall</option></select></label><label>Guests<select name="guests" defaultValue="2 guests"><option>2 guests</option><option>3–4 guests</option><option>5+ guests</option></select></label></div><label>Preferred date & time<input name="date" required type="datetime-local" /></label><label>Special requests<textarea name="requests" rows={3} placeholder="Dietary needs, seating preferences, or anything else for the team" /></label><button className="button button-dark" type="submit">Continue in WhatsApp <ArrowRight size={17} /></button><small>Your request is sent only after you tap Send in WhatsApp. The branch will confirm availability.</small></form></>}</div></div>}
     </div>
   );
 }
